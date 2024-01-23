@@ -23,22 +23,45 @@ public class Main {
 			if(tmp.contains("R")) r_cnt++;
 		}
 		
+		int back_r = r_cnt;
+		int back_b = b_cnt;
 		// 마지막 블럭 고려하기
 		if(str.charAt(N-1) == 'R') {
-			r_cnt--;
+			back_r--;
 			for(int i=N-2; i>=0; i--) {
-				if(str.charAt(i) == 'R') r_cnt--;
+				if(str.charAt(i) == 'R') back_r--;
 				else break;
 			}
 		}
 		else if(str.charAt(N-1) == 'B') {
-			b_cnt--;
+			back_b--;
 			for(int i=N-2; i>=0; i--) {
-				if(str.charAt(i) == 'B') b_cnt--;
+				if(str.charAt(i) == 'B') back_b--;
 				else break;
 			}
 		}
 		
-		System.out.println(Math.min(r_cnt, b_cnt));
+		int front_r = r_cnt;
+		int front_b = b_cnt;
+		// 마지막 블럭 고려하기
+		if(str.charAt(0) == 'R') {
+			front_r--;
+			for(int i=1; i<N; i++) {
+				if(str.charAt(i) == 'R') front_r--;
+				else break;
+			}
+		}
+		else if(str.charAt(0) == 'B') {
+			front_b--;
+			for(int i=1; i<N; i++) {
+				if(str.charAt(i) == 'B') front_b--;
+				else break;
+			}
+		}
+		
+		int min_b = Math.min(back_b, front_b);
+		int min_r = Math.min(back_r, front_r);
+		System.out.println(Math.min(min_b, min_r));
 	}
 }
+
